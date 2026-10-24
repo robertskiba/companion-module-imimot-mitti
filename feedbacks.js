@@ -115,7 +115,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.states.playing == 'Playing' && this.states.currentCueID == value
 		},
 	}
@@ -137,7 +137,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.states.currentCueID == value
 		},
 	}
@@ -159,7 +159,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.states.selectedCueID == value
 		},
 	}
@@ -181,7 +181,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.toggleAudio > 0
 		},
 	}
@@ -203,7 +203,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.togglePauseAtBeginning > 0
 		},
 	}
@@ -225,7 +225,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.togglePauseAtEnd > 0
 		},
 	}
@@ -247,7 +247,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.toggleFadeIn > 0
 		},
 	}
@@ -269,7 +269,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.toggleFadeOut > 0
 		},
 	}
@@ -291,7 +291,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.toggleLoop > 0
 		},
 	}
@@ -313,7 +313,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.toggleTransition > 0
 		},
 	}
@@ -335,7 +335,7 @@ export function getFeedbacks() {
 			},
 		],
 		callback: (feedback) => {
-			const value = this.conformCueID(feedback.options.cueID)
+			const value = this.cueStateKey(feedback.options.cueID)
 			return this.cues[value]?.toggleGoto > 0
 		},
 	}

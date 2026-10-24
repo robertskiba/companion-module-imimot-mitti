@@ -10,6 +10,20 @@ import { Bonjour } from '@julusian/bonjour-service'
 
 export { UpgradeScripts }
 
+// Cue properties reported by Mitti and the feedbacks which depend on them
+const CueToggleFeedbacks = {
+	toggleAudio: 'cueAudioStatus',
+	togglePauseAtBeginning: 'cuePauseAtBeginningStatus',
+	togglePauseAtEnd: 'cuePauseAtEndStatus',
+	toggleFadeIn: 'cueFadeInStatus',
+	toggleFadeOut: 'cueFadeOutStatus',
+	toggleLoop: 'cueLoopStatus',
+	toggleTransition: 'cueTransitionStatus',
+	toggleGoto: 'cueGotoStatus',
+}
+
+const SpecialCueIDs = /^(current|selected|previous|next|all)$/i
+
 export default class MittiInstance extends InstanceBase {
 	constructor(internal) {
 		super(internal)
@@ -106,19 +120,29 @@ export default class MittiInstance extends InstanceBase {
 			this.initFeedbacks()
 			this.initOSC()
 		} else {
+			this.closeOSC()
 			this.updateStatus(InstanceStatus.BadConfig, 'Unable to determine IP Address')
 		}
 	}
 
 	async destroy() {
-		if (this.listener) {
-			this.listener.close()
-		}
-
-		this.stopTestService()
+		this.closeOSC()
 		this.stopBonjourService()
 
 		this.cues = {}
+	}
+
+	closeOSC() {
+		if (this.listener) {
+			this.listener.close()
+			this.listener = null
+		}
+
+		this.stopTestService()
+	}
+
+	playlistCueIDs() {
+		return Object.keys(this.cues).filter((cueID) => !['current', 'previous', 'next', '0'].includes(cueID))
 	}
 
 	initVariables() {
@@ -145,6 +169,8 @@ export default class MittiInstance extends InstanceBase {
 	parseIpAndPort() {
 		const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 
+		this.connection.ip = null
+
 		if (this.config.bonjourHost) {
 			const [ip, rawPort] = this.config.bonjourHost.split(':')
 			const port = Number(rawPort)
@@ -160,6 +186,10 @@ export default class MittiInstance extends InstanceBase {
 	}
 
 	sendCommand(command, value, type) {
+		if (!this.connection.ip) {
+			return
+		}
+
 		if (value || value === 0) {
 			type = type ?? 's'
 			this.oscSend(this.connection.ip, 51000, `/mitti/${command}`, [
@@ -174,12 +204,35 @@ export default class MittiInstance extends InstanceBase {
 	}
 
 	conformCueID(cueID) {
-		let cue = `${cueID ?? ''}`.trim()
+		const cue = `${cueID ?? ''}`.trim()
 
-		if (!cue.match(/^(current|selected|previous|next|all)$/)) {
-			cue = cue.toUpperCase().slice(0, 6)
+		if (cue.match(SpecialCueIDs)) {
+			return cue.toLowerCase()
 		}
-		return cue
+		return cue.toUpperCase().slice(0, 6)
+	}
+
+	// Sends a command for a cue, eg `1/toggleLoop`. Skips the command if no cue was given
+	sendCueCommand(cueID, command, value, type) {
+		const cue = this.conformCueID(cueID)
+		if (!cue) {
+			this.log('warn', `No cue number or ID given for ${command}`)
+			return
+		}
+		this.sendCommand(`${cue}/${command}`, value, type)
+	}
+
+	// The key in this.cues holding the state of a cue for feedbacks
+	cueStateKey(cueID) {
+		const cue = this.conformCueID(cueID)
+		return cue === 'selected' ? this.states.selectedCueID : cue
+	}
+
+	checkCueToggleFeedback(param) {
+		const feedback = CueToggleFeedbacks[param]
+		if (feedback) {
+			this.checkFeedbacks(feedback)
+		}
 	}
 
 	async initOSC() {
@@ -403,11 +456,11 @@ export default class MittiInstance extends InstanceBase {
 			case 'selectedCueID':
 				this.states.selectedCueID = value
 				this.setVariableValues({ selectedCueID: value != '-' ? value : 'None' })
-				this.checkFeedbacks('selectedCueID')
+				this.checkFeedbacks('selectedCueID', 'playingCueID', 'activeCueID', ...Object.values(CueToggleFeedbacks))
 				break
 			case 'cueTimeLeft':
 				{
-					let cueTimeLeft = value
+					let cueTimeLeft = `${value}`
 					let cueTimeLeftSplit = cueTimeLeft.match(/^-(?<hh>\d\d):(?<mm>\d\d):(?<ss>\d\d)/i)
 					if (cueTimeLeftSplit) {
 						let cueTimeLeftHH = cueTimeLeftSplit?.groups?.hh
@@ -431,7 +484,7 @@ export default class MittiInstance extends InstanceBase {
 				break
 			case 'cueTimeElapsed':
 				{
-					let cueTimeElapsed = value
+					let cueTimeElapsed = `${value}`
 					let cueTimeElapsedSplit = cueTimeElapsed.match(/^(?<hh>\d\d):(?<mm>\d\d):(?<ss>\d\d)/i)
 					if (cueTimeElapsedSplit) {
 						let cueTimeElapsedHH = cueTimeElapsedSplit?.groups?.hh
@@ -454,7 +507,7 @@ export default class MittiInstance extends InstanceBase {
 				break
 			case 'currentCueTRT':
 				{
-					let currentCueTRT = value
+					let currentCueTRT = `${value}`
 					let cueTimeSplit = currentCueTRT.match(/^(?<hh>\d\d):(?<mm>\d\d):(?<ss>\d\d)/i)
 					if (cueTimeSplit) {
 						let cueTimeHH = cueTimeSplit?.groups?.hh
@@ -513,6 +566,7 @@ export default class MittiInstance extends InstanceBase {
 				this.cues[cue] = {}
 			}
 			this.cues[cue][param] = value
+			this.checkCueToggleFeedback(param)
 			if (param.match(/^toggle/)) {
 				if (param === 'Audio') {
 					value = value > 0 ? 'Unmuted' : 'Muted'
@@ -541,6 +595,7 @@ export default class MittiInstance extends InstanceBase {
 				this.cues[cue] = {}
 			}
 			this.cues[cue][param] = value
+			this.checkCueToggleFeedback(param)
 		} else {
 			if (!this.cues[cue]?.cueName && cue != 0 && param === 'cueName') {
 				if (!this.cues[cue]) {
@@ -560,37 +615,10 @@ export default class MittiInstance extends InstanceBase {
 				}
 				this.cues[cue][param] = value
 
-				switch (param) {
-					case 'cueName':
-						this.setVariableValues({ [`cue_${cue}_cueName`]: value })
-						break
-					case 'toggleAudio':
-						this.checkFeedbacks('cueAudioStatus')
-						break
-					case 'togglePauseAtBeginning':
-						this.checkFeedbacks('cuePauseAtBeginningStatus')
-						break
-					case 'togglePauseAtEnd':
-						this.checkFeedbacks('cuePauseAtEndStatus')
-						break
-					case 'toggleFadeIn':
-						this.checkFeedbacks('cueFadeInStatus')
-						break
-					case 'toggleFadeOut':
-						this.checkFeedbacks('cueFadeOutStatus')
-						break
-					case 'toggleLoop':
-						this.checkFeedbacks('cueLoopStatus')
-						break
-					case 'toggleTransition':
-						this.checkFeedbacks('cueTransitionStatus')
-						break
-					case 'toggleGoto':
-						this.checkFeedbacks('cueGotoStatus')
-						break
-					default:
-						break
+				if (param === 'cueName') {
+					this.setVariableValues({ [`cue_${cue}_cueName`]: value })
 				}
+				this.checkCueToggleFeedback(param)
 			}
 		}
 	}

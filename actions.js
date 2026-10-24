@@ -195,7 +195,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/jump`)
+				this.sendCueCommand(action.options.cuenumber, 'jump')
 			},
 		},
 		jumpCueName: {
@@ -226,7 +226,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/select`)
+				this.sendCueCommand(action.options.cuenumber, 'select')
 			},
 		},
 		play_cue: {
@@ -249,7 +249,9 @@ export function getActions() {
 			],
 			callback: (action) => {
 				const cueID = this.conformCueID(action.options.cuenumber)
-				if (action.options.forceCut) {
+				if (!cueID) {
+					this.log('warn', 'No cue number or ID given for playCueWithCueID')
+				} else if (action.options.forceCut) {
 					this.sendCommand(`playCueWithCueIDForceCut`, cueID)
 				} else {
 					this.sendCommand(`playCueWithCueID`, cueID)
@@ -328,7 +330,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/audioOn`)
+				this.sendCueCommand(action.options.cuenumber, 'audioOn')
 			},
 		},
 		audioOff: {
@@ -344,7 +346,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/audioOff`)
+				this.sendCueCommand(action.options.cuenumber, 'audioOff')
 			},
 		},
 		toggleAudio: {
@@ -360,7 +362,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleAudio`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleAudio')
 			},
 		},
 		toggleFadeIn: {
@@ -376,7 +378,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleFadeIn`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleFadeIn')
 			},
 		},
 		fadeInOn: {
@@ -392,7 +394,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/fadeInOn`)
+				this.sendCueCommand(action.options.cuenumber, 'fadeInOn')
 			},
 		},
 		fadeInOff: {
@@ -408,7 +410,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/fadeInOff`)
+				this.sendCueCommand(action.options.cuenumber, 'fadeInOff')
 			},
 		},
 		toggleFadeOut: {
@@ -424,7 +426,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleFadeOut`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleFadeOut')
 			},
 		},
 		fadeOutOn: {
@@ -440,7 +442,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/fadeOutOn`)
+				this.sendCueCommand(action.options.cuenumber, 'fadeOutOn')
 			},
 		},
 		fadeOutOff: {
@@ -456,7 +458,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/fadeOutOff`)
+				this.sendCueCommand(action.options.cuenumber, 'fadeOutOff')
 			},
 		},
 		toggleGoto: {
@@ -472,7 +474,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleGoto`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleGoto')
 			},
 		},
 		gotoOn: {
@@ -488,7 +490,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/gotoOn`)
+				this.sendCueCommand(action.options.cuenumber, 'gotoOn')
 			},
 		},
 		gotoOff: {
@@ -504,7 +506,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/gotoOff`)
+				this.sendCueCommand(action.options.cuenumber, 'gotoOff')
 			},
 		},
 		setGotoToCueID: {
@@ -528,10 +530,12 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(
-					`${this.conformCueID(action.options.cuenumber)}/setGotoToCueID`,
-					`${this.conformCueID(action.options.gotoCue)}`,
-				)
+				const gotoCue = this.conformCueID(action.options.gotoCue)
+				if (!gotoCue) {
+					this.log('warn', 'No goto cue number or ID given for setGotoToCueID')
+				} else {
+					this.sendCueCommand(action.options.cuenumber, 'setGotoToCueID', gotoCue)
+				}
 			},
 		},
 		toggleLoop: {
@@ -547,7 +551,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleLoop`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleLoop')
 			},
 		},
 		loopOn: {
@@ -563,7 +567,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/loopOn`)
+				this.sendCueCommand(action.options.cuenumber, 'loopOn')
 			},
 		},
 		loopOff: {
@@ -579,7 +583,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/loopOff`)
+				this.sendCueCommand(action.options.cuenumber, 'loopOff')
 			},
 		},
 		togglePauseAtBeginning: {
@@ -595,7 +599,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/togglePauseAtBeginning`)
+				this.sendCueCommand(action.options.cuenumber, 'togglePauseAtBeginning')
 			},
 		},
 		pauseAtBeginningOn: {
@@ -611,7 +615,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/pauseAtBeginningOn`)
+				this.sendCueCommand(action.options.cuenumber, 'pauseAtBeginningOn')
 			},
 		},
 		pauseAtBeginningOff: {
@@ -627,7 +631,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/pauseAtBeginningOff`)
+				this.sendCueCommand(action.options.cuenumber, 'pauseAtBeginningOff')
 			},
 		},
 		togglePauseAtEnd: {
@@ -643,7 +647,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/togglePauseAtEnd`)
+				this.sendCueCommand(action.options.cuenumber, 'togglePauseAtEnd')
 			},
 		},
 		pauseAtEndOn: {
@@ -659,7 +663,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/pauseAtEndOn`)
+				this.sendCueCommand(action.options.cuenumber, 'pauseAtEndOn')
 			},
 		},
 		pauseAtEndOff: {
@@ -675,7 +679,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/pauseAtEndOff`)
+				this.sendCueCommand(action.options.cuenumber, 'pauseAtEndOff')
 			},
 		},
 		toggleTransition: {
@@ -691,7 +695,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleTransition`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleTransition')
 			},
 		},
 		transitionOn: {
@@ -707,7 +711,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/transitionOn`)
+				this.sendCueCommand(action.options.cuenumber, 'transitionOn')
 			},
 		},
 		transitionOff: {
@@ -723,7 +727,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/transitionOff`)
+				this.sendCueCommand(action.options.cuenumber, 'transitionOff')
 			},
 		},
 		toggleVideoFx: {
@@ -739,7 +743,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/toggleVideoFx`)
+				this.sendCueCommand(action.options.cuenumber, 'toggleVideoFx')
 			},
 		},
 		videoFxOn: {
@@ -755,7 +759,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/videoFxOn`)
+				this.sendCueCommand(action.options.cuenumber, 'videoFxOn')
 			},
 		},
 		videoFxOff: {
@@ -771,7 +775,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/videoFxOff`)
+				this.sendCueCommand(action.options.cuenumber, 'videoFxOff')
 			},
 		},
 		scale: {
@@ -821,12 +825,11 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				let cue = this.conformCueID(action.options.cuenumber)
 				if (action.options.splitScale) {
-					this.sendCommand(`${cue}/scaleHAsPercent`, action.options.valueH)
-					this.sendCommand(`${cue}/scaleVAsPercent`, action.options.valueV)
+					this.sendCueCommand(action.options.cuenumber, 'scaleHAsPercent', action.options.valueH)
+					this.sendCueCommand(action.options.cuenumber, 'scaleVAsPercent', action.options.valueV)
 				} else {
-					this.sendCommand(`${cue}/scaleAsPercent`, action.options.value)
+					this.sendCueCommand(action.options.cuenumber, 'scaleAsPercent', action.options.value)
 				}
 			},
 		},
@@ -856,10 +859,10 @@ export function getActions() {
 			],
 			callback: (action) => {
 				if (action.options.valueX) {
-					this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/posXAsPixels`, action.options.valueX)
+					this.sendCueCommand(action.options.cuenumber, 'posXAsPixels', action.options.valueX)
 				}
 				if (action.options.valueY) {
-					this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/posYAsPixels`, action.options.valueY)
+					this.sendCueCommand(action.options.cuenumber, 'posYAsPixels', action.options.valueY)
 				}
 			},
 		},
@@ -901,22 +904,16 @@ export function getActions() {
 			],
 			callback: (action) => {
 				if (action.options.valueLeft) {
-					this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/cropLeftAsPixels`, action.options.valueLeft)
+					this.sendCueCommand(action.options.cuenumber, 'cropLeftAsPixels', action.options.valueLeft)
 				}
 				if (action.options.valueRight) {
-					this.sendCommand(
-						`${this.conformCueID(action.options.cuenumber)}/cropRightAsPixels`,
-						action.options.valueRight,
-					)
+					this.sendCueCommand(action.options.cuenumber, 'cropRightAsPixels', action.options.valueRight)
 				}
 				if (action.options.valueTop) {
-					this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/cropTopAsPixels`, action.options.valueTop)
+					this.sendCueCommand(action.options.cuenumber, 'cropTopAsPixels', action.options.valueTop)
 				}
 				if (action.options.valueBottom) {
-					this.sendCommand(
-						`${this.conformCueID(action.options.cuenumber)}/cropBottomAsPixels`,
-						action.options.valueBottom,
-					)
+					this.sendCueCommand(action.options.cuenumber, 'cropBottomAsPixels', action.options.valueBottom)
 				}
 			},
 		},
@@ -941,7 +938,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/rotateAsDegrees`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'rotateAsDegrees', action.options.value)
 			},
 		},
 		hue: {
@@ -965,7 +962,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/hueAsDegrees`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'hueAsDegrees', action.options.value)
 			},
 		},
 		saturation: {
@@ -989,7 +986,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/saturationAsPercent`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'saturationAsPercent', action.options.value)
 			},
 		},
 		vibrance: {
@@ -1013,7 +1010,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/vibranceAsPercent`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'vibranceAsPercent', action.options.value)
 			},
 		},
 		brightness: {
@@ -1037,7 +1034,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/brightnessAsPercent`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'brightnessAsPercent', action.options.value)
 			},
 		},
 		contrast: {
@@ -1061,7 +1058,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/contrastAsPercent`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'contrastAsPercent', action.options.value)
 			},
 		},
 		opacity: {
@@ -1085,7 +1082,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/opacityAsPercent`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'opacityAsPercent', action.options.value)
 			},
 		},
 		volume: {
@@ -1109,10 +1106,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(
-					`${this.conformCueID(action.options.cuenumber)}/volumeAsDecibels`,
-					parseFloat(action.options.value),
-				)
+				this.sendCueCommand(action.options.cuenumber, 'volumeAsDecibels', parseFloat(action.options.value))
 			},
 		},
 		adjustVolume: {
@@ -1260,7 +1254,7 @@ export function getActions() {
 				},
 			],
 			callback: (action) => {
-				this.sendCommand(`${this.conformCueID(action.options.cuenumber)}/playbackSpeed`, action.options.value)
+				this.sendCueCommand(action.options.cuenumber, 'playbackSpeed', action.options.value)
 			},
 		},
 		adjustPlaybackSpeed: {

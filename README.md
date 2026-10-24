@@ -20,6 +20,12 @@ See [HELP.md](./companion/HELP.md) and [LICENSE](./LICENSE)
   - Time Remaining feedback calculated hours as 120 seconds
   - Elapsed time variable showed minutes in place of hours when longer than 1 hour
   - A `currentCueVolume` message no longer overwrites the current cue name
+  - "Play Cue by ID" presets are no longer created for current, next and previous cue
+  - Cue feedbacks using current, next or previous update when the cue changes
+  - Cue feedbacks support "selected"
+  - An invalid IP address after a configuration change is reported instead of using the old address
+  - Cue keywords like "current" are recognised regardless of case
+  - Actions with an empty cue number or ID log a warning instead of sending an invalid command
 
 ### v3.10.2
 

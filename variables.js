@@ -40,11 +40,7 @@ export function getVariables() {
 	variables.audio_outputs = { name: 'Current status of audio outputs' }
 
 	//Cue Variables
-	for (let cueID in this.cues) {
-		if (cueID === 'current' || cueID === 'previous' || cueID === 'next' || cueID === '0') {
-			continue
-		}
-
+	for (const cueID of this.playlistCueIDs()) {
 		variables[`cue_${cueID}_cueName`] = { name: `Cue ${cueID} - Name` }
 	}
 
@@ -54,11 +50,7 @@ export function getVariables() {
 export function getCueVariableValues() {
 	const values = {}
 
-	for (let cueID in this.cues) {
-		if (cueID === 'current' || cueID === 'previous' || cueID === 'next' || cueID === '0') {
-			continue
-		}
-
+	for (const cueID of this.playlistCueIDs()) {
 		values[`cue_${cueID}_cueName`] = this.cues[cueID]?.cueName
 	}
 

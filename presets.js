@@ -2131,7 +2131,7 @@ export function getPresets() {
 		},
 	}
 
-	for (let cueID in this.cues) {
+	for (const cueID of this.playlistCueIDs()) {
 		presets[`playCueID_${cueID}`] = {
 			type: 'simple',
 			name: `Play Cue ${cueID}`,
