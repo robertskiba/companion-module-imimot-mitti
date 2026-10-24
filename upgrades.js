@@ -13,9 +13,9 @@ export default [
 
 		for (const action of props.actions) {
 			if (action.actionId === 'scale') {
-				action.options.splitScale = false
-				action.options.valueH = 100
-				action.options.valueV = 100
+				action.options.splitScale = { value: false, isExpression: false }
+				action.options.valueH = { value: 100, isExpression: false }
+				action.options.valueV = { value: 100, isExpression: false }
 				changes.updatedActions.push(action)
 			}
 		}
@@ -48,7 +48,7 @@ export default [
 		for (const action of props.actions) {
 			if (action.actionId === 'play_select' || action.actionId === 'play_cue' || action.actionId === 'playCueName') {
 				if (!action.options.forceCut) {
-					action.options.forceCut = false
+					action.options.forceCut = { value: false, isExpression: false }
 					changes.updatedActions.push(action)
 				}
 			}

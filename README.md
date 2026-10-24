@@ -8,6 +8,19 @@ See [HELP.md](./companion/HELP.md) and [LICENSE](./LICENSE)
 
 ## Changelog
 
+### v4.0.0
+
+- Breaking
+  - Requires Companion 5.0 or later (module API 2.x)
+- New
+  - Local variables (e.g. `$(local:cue)`) can be used in all text fields of actions and feedbacks
+  - Any action or feedback option can be switched to an expression
+  - Cue Position and Cue Crop values accept variables
+- Fix
+  - Time Remaining feedback calculated hours as 120 seconds
+  - Elapsed time variable showed minutes in place of hours when longer than 1 hour
+  - A `currentCueVolume` message no longer overwrites the current cue name
+
 ### v3.10.2
 
 - Fix

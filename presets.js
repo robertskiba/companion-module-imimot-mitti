@@ -23,14 +23,8 @@ export function getPresets() {
 		'iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAYAAAATBx+NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEpklEQVR4nO2aT28bRRjGn5mddYydP1aICFRJLVe0UaSoUosEB07wDbgg8QF6ipB6QUgcuHAAiRNfgIoDQhx6I1WhEKtpSxWQogYiAk0ICYHUponrTepkbc/My4EiJf63HnvXa9D+rD1k993nfffxeDIzO4yIENEcHnYB/U5kkAeRQR5EBnkQGeRBZJAHkUEeRAZ58J8w6OFDdlAuswOtGbkuc/J59qgbvVyO5V2XOQCjSoU5uRzbbhbLakfSdt7+TI7LlwAkQNjhDndUSr3STUGdUiiwpeFhTAkBDWDw2KX9SgUiFqOkqebjx2xvcBACwPBxvXIZ+wMDNFl3AxGdOEDYAJ34lCBxW2yJW7WxQR7b23i3VMJei5Cq4yBvolko4BERjppcLheLeFB7stFPLFPzdwIWXpan5aR1YN02/cY6JZHAxXgciRYhIpnEgYlmKoUcgHiTy7GREYzWnjTpg9J6SL/ANNsWD8RNk8I6IZXCIOdNHwYAYFkYMtFkzPN5Y7UnTDvpODgm1HNqipf5or1lf2N4f9twDrudMEPZOgP8TvAv4zRAL8q0zFj71vcdarSkzVUYGUTu43T7bz6jh/UMr/JlkRO3fKnIjLJhvLGhfoyD4mTTefWsOmsVrSUf9AAARGinDbmGsi3jG7VaYZigFeM6pYeYZEu8yKHG1EUftRtCBJcxo1sOTXP4PZJOQOCCHtNnmGLL9pb9pc/6JyAy/smYtrjAphojsHBepuVZsSsC6cQBgDFjgyqmOYKei2XUmDrDXf6jvWnP+S3ewfsGbXpDLyaroxSnGZmW0/yA+9aJd0hfGvQPDBkaohle5Uv2lv11z/J2Sa+XO2yy6YJMyzPWvrXW49wdEdZ6UEYP6wlGbMP6y7+xUxCEuWAWB0NGP6PTvMqXYpsx3ztxP/BzoNgpo2TTqJyU7UxOe07fLLmSRdNh19CIvjEIgBV2AY3oJ4O2wi6gEf1gkAJwV/wuAlt864awO+kdfsTvqKfU6zgdciVNCMugQwALYkesV09V3wyphrYIw6AV7vDrakS9hVMhZDeklwY5TLEFsS5WKlOVd3qYtyt6ZdAPfJdn1Zi6jKkeZfSJoA36AxJz9prtVqYrlwPOFQhBGaRAuGH9aS3ICfk++nKM3B5BGLTKSuyOTupLmAhAvcf4OVCsApiz1+2rOqkv+agbKn61oFVe4lmVVLN43ifFPqHbFuSwKrsr7ovrKqlmfakoWIyft5sWtGLtWQvyaTmLc12oNKGdF4Jt7NaoxXjRvhOD8kyzrFgThcpUJbBWc3SEXDwOcH+n0y0N0hquVbPoYpJeAfjKylkfa67fCNIcANjcxK6U+KVFyGGh0PJ6HXt70Gj++tl1HNRvEGuwBa9YswWPQNhgJfZpL7fgLS7itXv38B0Rfm4UojXmO9FVCtkml240OtnIoJsn9icSvhCb4r1emnP8WF7Gt0S4SoT1J/sLfzo8xJVr1/B2J3rz8/jAdfE5EX59oreqFD7JZvFqo/i6Xa6x+7EPq+eqvwHgvMgtlVIfmTTj/xt1BkWcpB+WXPuayCAPIoM8iAzyIDLIg8ggDyKDPIgM8uBvpT6a+TZm4bEAAAAASUVORK5CYII='
 
 	let presets = {
-		playlistGraphicsHeader: {
-			category: 'Playlist Actions',
-			name: 'Transport Control - Icons',
-			type: 'text',
-		},
 		playSelected: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Play Selected',
 			options: {},
 			style: {
@@ -42,15 +36,14 @@ export function getPresets() {
 			},
 			steps: [
 				{
-					down: [{ actionId: 'play_select' }],
+					down: [{ actionId: 'play_select', options: {} }],
 					up: [],
 				},
 			],
 			feedbacks: [],
 		},
 		playPlaylist: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Play Playlist',
 			options: {},
 			style: {
@@ -65,6 +58,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'play',
+							options: {},
 						},
 					],
 					up: [],
@@ -73,8 +67,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pause: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Pause',
 			options: {},
 			style: {
@@ -89,6 +82,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'stop',
+							options: {},
 						},
 					],
 					up: [],
@@ -97,8 +91,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpPrevious: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Jump to previous',
 			options: {},
 			style: {
@@ -113,6 +106,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'jump_prev',
+							options: {},
 						},
 					],
 					up: [],
@@ -121,8 +115,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpNext: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Jump to next',
 			options: {},
 			style: {
@@ -137,6 +130,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'jump_next',
+							options: {},
 						},
 					],
 					up: [],
@@ -145,8 +139,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseResume: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Pause / Resume',
 			options: {},
 			style: {
@@ -161,6 +154,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'toggle_play',
+							options: {},
 						},
 					],
 					up: [],
@@ -187,14 +181,8 @@ export function getPresets() {
 				},
 			],
 		},
-		playlistTextHeader: {
-			category: 'Playlist Actions',
-			name: 'Transport Control - Text',
-			type: 'text',
-		},
 		playSelectedText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Play Selected',
 			options: {},
 			style: {
@@ -208,6 +196,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'play_select',
+							options: {},
 						},
 					],
 				},
@@ -215,8 +204,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		playPlaylistText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Play Playlist',
 			options: {},
 			style: {
@@ -230,6 +218,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'play',
+							options: {},
 						},
 					],
 					up: [],
@@ -238,8 +227,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Pause',
 			options: {},
 			style: {
@@ -253,6 +241,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'stop',
+							options: {},
 						},
 					],
 					up: [],
@@ -261,8 +250,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseResumeText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Pause / Resume',
 			options: {},
 			style: {
@@ -276,6 +264,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'toggle_play',
+							options: {},
 						},
 					],
 					up: [],
@@ -284,8 +273,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		rewindText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Rewind',
 			options: {},
 			style: {
@@ -299,6 +287,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'rewind',
+							options: {},
 						},
 					],
 					up: [],
@@ -307,8 +296,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		panic: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Panic',
 			options: {},
 			style: {
@@ -322,6 +310,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'panic',
+							options: {},
 						},
 					],
 					up: [],
@@ -330,8 +319,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		goTo30: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Goto 30',
 			options: {},
 			style: {
@@ -345,6 +333,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'goto_30',
+							options: {},
 						},
 					],
 					up: [],
@@ -353,8 +342,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		goTo20: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Goto 20',
 			options: {},
 			style: {
@@ -368,6 +356,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'goto_20',
+							options: {},
 						},
 					],
 					up: [],
@@ -376,8 +365,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		goTo10: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Goto 10',
 			options: {},
 			style: {
@@ -391,6 +379,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'goto_10',
+							options: {},
 						},
 					],
 					up: [],
@@ -399,12 +388,9 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		scrubPlayheadRotary: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Scrub Playhead - Rotary Knob',
-			options: {
-				rotaryActions: true,
-			},
+			options: {},
 			style: {
 				text: 'Scrub Playhead- Rotary Knob',
 				size: '12',
@@ -436,8 +422,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		scrubPlayheadMinusOne: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'SCRUB -1 Seconds',
 			options: {},
 			style: {
@@ -462,8 +447,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		scrubPlayheadPlusOne: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'SCRUB +1 Seconds',
 			options: {},
 			style: {
@@ -487,14 +471,8 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		},
-		playlistTextMainHeader: {
-			category: 'Playlist Actions',
-			name: 'Playlist Settings',
-			type: 'text',
-		},
 		togglePlaylistLoop: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Toggle Playlist Loop',
 			options: {},
 			style: {
@@ -508,6 +486,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'plLoopToggle',
+							options: {},
 						},
 					],
 					up: [],
@@ -516,8 +495,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		playlistLoopOn: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Playlist Loop On',
 			options: {},
 			style: {
@@ -531,6 +509,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'plLoopOn',
+							options: {},
 						},
 					],
 					up: [],
@@ -539,8 +518,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		playlistLoopOff: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Playlist Loop Off',
 			options: {},
 			style: {
@@ -554,6 +532,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'plLoopOff',
+							options: {},
 						},
 					],
 					up: [],
@@ -562,8 +541,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		toggleTransitionOnPlay: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Toggle Transition on Play',
 			options: {},
 			style: {
@@ -577,6 +555,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'plTransToggle',
+							options: {},
 						},
 					],
 					up: [],
@@ -585,8 +564,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		transitionOnPlayOff: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Transition on Play Off',
 			options: {},
 			style: {
@@ -600,6 +578,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'plTransOff',
+							options: {},
 						},
 					],
 					up: [],
@@ -608,8 +587,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		transitionOnPlayOn: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Transition on Play On',
 			options: {},
 			style: {
@@ -623,6 +601,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'plTransOn',
+							options: {},
 						},
 					],
 					up: [],
@@ -630,14 +609,8 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		},
-		playlistTextCueNavHeader: {
-			category: 'Playlist Actions',
-			name: 'Cue Navigation',
-			type: 'text',
-		},
 		jumpPreviousText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Jump to previous',
 			options: {},
 			style: {
@@ -651,6 +624,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'jump_prev',
+							options: {},
 						},
 					],
 					up: [],
@@ -659,8 +633,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpNextText: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Jump to next',
 			options: {},
 			style: {
@@ -674,6 +647,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'jump_next',
+							options: {},
 						},
 					],
 					up: [],
@@ -682,8 +656,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpSelected: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Jump to selected',
 			options: {},
 			style: {
@@ -697,6 +670,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'jump_selected',
+							options: {},
 						},
 					],
 					up: [],
@@ -705,8 +679,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		selectPrevious: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Select previous',
 			options: {},
 			style: {
@@ -720,6 +693,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'select_prev',
+							options: {},
 						},
 					],
 					up: [],
@@ -728,8 +702,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		selectNext: {
-			type: 'button',
-			category: 'Playlist Actions',
+			type: 'simple',
 			name: 'Select next',
 			options: {},
 			style: {
@@ -743,6 +716,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'select_next',
+							options: {},
 						},
 					],
 					up: [],
@@ -751,8 +725,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		playCue: {
-			type: 'button',
-			category: 'Cue Actions',
+			type: 'simple',
 			name: 'Play Cue',
 			options: {},
 			style: {
@@ -777,8 +750,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpToCueWithNamePlay: {
-			type: 'button',
-			category: 'Cue Actions',
+			type: 'simple',
 			name: 'Jump to cue with (name) and Play',
 			options: {},
 			style: {
@@ -803,8 +775,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpToCueWithName: {
-			type: 'button',
-			category: 'Cue Actions',
+			type: 'simple',
 			name: 'Jump to cue with name',
 			options: {},
 			style: {
@@ -829,8 +800,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		jumpToSpecificCue: {
-			type: 'button',
-			category: 'Cue Actions',
+			type: 'simple',
 			name: 'Jump to specific cue',
 			options: {},
 			style: {
@@ -855,8 +825,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		selectCue: {
-			type: 'button',
-			category: 'Cue Actions',
+			type: 'simple',
 			name: 'Select cue',
 			options: {},
 			style: {
@@ -880,14 +849,8 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		},
-		currentPlaybackHeader: {
-			category: 'Current Cue Actions',
-			name: 'Cue Playback Options',
-			type: 'text',
-		},
 		toggleFadeIn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Fade In',
 			options: {},
 			style: {
@@ -912,8 +875,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		fadeInOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Fade In On',
 			options: {},
 			style: {
@@ -938,8 +900,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		fadeInOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Fade In Off',
 			options: {},
 			style: {
@@ -964,8 +925,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		toggleFadeOut: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Fade Out',
 			options: {},
 			style: {
@@ -990,8 +950,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		fadeOutOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Fade Out On',
 			options: {},
 			style: {
@@ -1016,8 +975,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		fadeOutOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Fade Out Off',
 			options: {},
 			style: {
@@ -1042,8 +1000,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		toggleLoop: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Loop',
 			options: {},
 			style: {
@@ -1068,8 +1025,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		loopOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Loop On',
 			options: {},
 			style: {
@@ -1094,8 +1050,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		loopOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Loop Off',
 			options: {},
 			style: {
@@ -1120,8 +1075,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		togglePauseAtBeginning: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Pause at Beginning',
 			options: {},
 			style: {
@@ -1146,8 +1100,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseAtBeginningOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Pause At Beginning On',
 			options: {},
 			style: {
@@ -1172,8 +1125,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseAtBeginningOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Pause At Beginning Off',
 			options: {},
 			style: {
@@ -1198,8 +1150,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		togglePauseAtEnd: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Pause at End',
 			options: {},
 			style: {
@@ -1224,8 +1175,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseAtEndOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Pause At End On',
 			options: {},
 			style: {
@@ -1250,8 +1200,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		pauseAtEndOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Pause At End Off',
 			options: {},
 			style: {
@@ -1276,8 +1225,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		toggleTransition: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Transition',
 			options: {},
 			style: {
@@ -1302,8 +1250,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		transitionOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Transition On',
 			options: {},
 			style: {
@@ -1328,8 +1275,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		transitionOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Transition Off',
 			options: {},
 			style: {
@@ -1354,8 +1300,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		toggleVideoFX: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle VideoFx',
 			options: {},
 			style: {
@@ -1380,8 +1325,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		videoFXOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'VideoFx On',
 			options: {},
 			style: {
@@ -1406,8 +1350,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		videoFXOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'VideoFx Off',
 			options: {},
 			style: {
@@ -1431,14 +1374,8 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		},
-		currentInOutHeader: {
-			category: 'Current Cue Actions',
-			name: 'Cue In / Out',
-			type: 'text',
-		},
 		setInFromPlayhead: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Set In From Playhead',
 			options: {},
 			style: {
@@ -1470,8 +1407,7 @@ export function getPresets() {
 			],
 		},
 		setOutFromPlayhead: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Set Out From Playhead',
 			options: {},
 			style: {
@@ -1502,14 +1438,8 @@ export function getPresets() {
 				},
 			],
 		},
-		currentCuePlaybackSpeedHeader: {
-			category: 'Current Cue Actions',
-			name: 'Cue Playback Speed',
-			type: 'text',
-		},
 		currentCuePlaybackSpeedStatus: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Current Cue Playback Speed',
 			options: {},
 			style: {
@@ -1527,12 +1457,9 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCuePlaybackRotary: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Cue Playback Speed - Rotary Knob',
-			options: {
-				rotaryActions: true,
-			},
+			options: {},
 			style: {
 				text: 'Playback Speed - Rotary Knob',
 				size: '12',
@@ -1564,8 +1491,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCuePlaybackMinusFive: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Current Cue -5%',
 			options: {},
 			style: {
@@ -1590,8 +1516,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCuePlaybackPlusFive: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Current Cue +5%',
 			options: {},
 			style: {
@@ -1615,14 +1540,8 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		},
-		currentCueVolumeHeader: {
-			category: 'Current Cue Actions',
-			name: 'Cue Audio / Volume',
-			type: 'text',
-		},
 		toggleAudio: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Toggle Audio',
 			options: {},
 			style: {
@@ -1647,8 +1566,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		audioOn: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Audio On',
 			options: {},
 			style: {
@@ -1673,8 +1591,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		audioOff: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Audio Off',
 			options: {},
 			style: {
@@ -1699,12 +1616,9 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCueVolumeRotary: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Cue Volume - Rotary Knob',
-			options: {
-				rotaryActions: true,
-			},
+			options: {},
 			style: {
 				text: 'Cue Volume - Rotary Knob',
 				size: '12',
@@ -1736,8 +1650,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCueVolumeMinusOne: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Current Cue -1 dB',
 			options: {},
 			style: {
@@ -1762,8 +1675,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCueVolumePlusOne: {
-			type: 'button',
-			category: 'Current Cue Actions',
+			type: 'simple',
 			name: 'Current Cue +1 dB',
 			options: {},
 			style: {
@@ -1788,8 +1700,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCueStatus: {
-			type: 'button',
-			category: 'Playlist Status',
+			type: 'simple',
 			name: 'Current Cue',
 			options: {},
 			style: {
@@ -1802,8 +1713,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		previousCueStatus: {
-			type: 'button',
-			category: 'Playlist Status',
+			type: 'simple',
 			name: 'Previous Cue',
 			options: {},
 			style: {
@@ -1816,8 +1726,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		nextCueStatus: {
-			type: 'button',
-			category: 'Playlist Status',
+			type: 'simple',
 			name: 'Next Cue',
 			options: {},
 			style: {
@@ -1830,8 +1739,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		playStauts: {
-			type: 'button',
-			category: 'Playlist Status',
+			type: 'simple',
 			name: 'Play Status',
 			options: {},
 			style: {
@@ -1855,8 +1763,7 @@ export function getPresets() {
 			],
 		},
 		currentCueTRT: {
-			type: 'button',
-			category: 'Playlist Status',
+			type: 'simple',
 			name: 'Current Cue - Total Run Time',
 			options: {},
 			style: {
@@ -1869,8 +1776,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		currentCueTimeRemaining: {
-			type: 'button',
-			category: 'Playlist Status',
+			type: 'simple',
 			name: 'Current Cue - Time Remaining',
 			options: {},
 			style: {
@@ -1946,14 +1852,8 @@ export function getPresets() {
 				},
 			],
 		},
-		videoOutputHeader: {
-			category: 'Outputs',
-			name: 'Video Outputs',
-			type: 'text',
-		},
 		videoOutputsActive: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Video Outputs Active',
 			options: {},
 			style: {
@@ -1994,8 +1894,7 @@ export function getPresets() {
 			],
 		},
 		videoOutputsOn: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Video Outputs On',
 			options: {},
 			style: {
@@ -2026,8 +1925,7 @@ export function getPresets() {
 			],
 		},
 		videoOutputsOff: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Video Outputs Off',
 			options: {},
 			style: {
@@ -2059,8 +1957,7 @@ export function getPresets() {
 			],
 		},
 		toggleFullscreen: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Toggle Fullscreen',
 			options: {},
 			style: {
@@ -2074,6 +1971,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'fullscreenToggle',
+							options: {},
 						},
 					],
 					up: [],
@@ -2082,8 +1980,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		fullscreenOn: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Fullscreen On',
 			options: {},
 			style: {
@@ -2097,6 +1994,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'fullscreenOn',
+							options: {},
 						},
 					],
 					up: [],
@@ -2105,8 +2003,7 @@ export function getPresets() {
 			feedbacks: [],
 		},
 		fullscreenOff: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Fullscreen Off',
 			options: {},
 			style: {
@@ -2120,6 +2017,7 @@ export function getPresets() {
 					down: [
 						{
 							actionId: 'fullscreenOff',
+							options: {},
 						},
 					],
 					up: [],
@@ -2127,14 +2025,8 @@ export function getPresets() {
 			],
 			feedbacks: [],
 		},
-		audioOutputHeader: {
-			category: 'Outputs',
-			name: 'Audio Outputs',
-			type: 'text',
-		},
 		audioOutputsActive: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Audio Outputs Active',
 			options: {},
 			style: {
@@ -2175,8 +2067,7 @@ export function getPresets() {
 			],
 		},
 		audioOutputsOn: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Audio Outputs On',
 			options: {},
 			style: {
@@ -2207,8 +2098,7 @@ export function getPresets() {
 			],
 		},
 		audioOutputsOff: {
-			type: 'button',
-			category: 'Outputs',
+			type: 'simple',
 			name: 'Audio Outputs Off',
 			options: {},
 			style: {
@@ -2243,8 +2133,7 @@ export function getPresets() {
 
 	for (let cueID in this.cues) {
 		presets[`playCueID_${cueID}`] = {
-			type: 'button',
-			category: 'Play Cue by ID',
+			type: 'simple',
 			name: `Play Cue ${cueID}`,
 			options: {},
 			style: {
@@ -2298,5 +2187,169 @@ export function getPresets() {
 		}
 	}
 
-	return presets
+	const structure = [
+		{
+			id: 'playlistActions',
+			name: 'Playlist Actions',
+			definitions: [
+				{
+					id: 'playlistGraphics',
+					type: 'simple',
+					name: 'Transport Control - Icons',
+					presets: ['playSelected', 'playPlaylist', 'pause', 'jumpPrevious', 'jumpNext', 'pauseResume'],
+				},
+				{
+					id: 'playlistText',
+					type: 'simple',
+					name: 'Transport Control - Text',
+					presets: [
+						'playSelectedText',
+						'playPlaylistText',
+						'pauseText',
+						'pauseResumeText',
+						'rewindText',
+						'panic',
+						'goTo30',
+						'goTo20',
+						'goTo10',
+						'scrubPlayheadRotary',
+						'scrubPlayheadMinusOne',
+						'scrubPlayheadPlusOne',
+					],
+				},
+				{
+					id: 'playlistTextMain',
+					type: 'simple',
+					name: 'Playlist Settings',
+					presets: [
+						'togglePlaylistLoop',
+						'playlistLoopOn',
+						'playlistLoopOff',
+						'toggleTransitionOnPlay',
+						'transitionOnPlayOff',
+						'transitionOnPlayOn',
+					],
+				},
+				{
+					id: 'playlistTextCueNav',
+					type: 'simple',
+					name: 'Cue Navigation',
+					presets: ['jumpPreviousText', 'jumpNextText', 'jumpSelected', 'selectPrevious', 'selectNext'],
+				},
+			],
+		},
+		{
+			id: 'cueActions',
+			name: 'Cue Actions',
+			definitions: ['playCue', 'jumpToCueWithNamePlay', 'jumpToCueWithName', 'jumpToSpecificCue', 'selectCue'],
+		},
+		{
+			id: 'currentCueActions',
+			name: 'Current Cue Actions',
+			definitions: [
+				{
+					id: 'currentPlayback',
+					type: 'simple',
+					name: 'Cue Playback Options',
+					presets: [
+						'toggleFadeIn',
+						'fadeInOn',
+						'fadeInOff',
+						'toggleFadeOut',
+						'fadeOutOn',
+						'fadeOutOff',
+						'toggleLoop',
+						'loopOn',
+						'loopOff',
+						'togglePauseAtBeginning',
+						'pauseAtBeginningOn',
+						'pauseAtBeginningOff',
+						'togglePauseAtEnd',
+						'pauseAtEndOn',
+						'pauseAtEndOff',
+						'toggleTransition',
+						'transitionOn',
+						'transitionOff',
+						'toggleVideoFX',
+						'videoFXOn',
+						'videoFXOff',
+					],
+				},
+				{
+					id: 'currentInOut',
+					type: 'simple',
+					name: 'Cue In / Out',
+					presets: ['setInFromPlayhead', 'setOutFromPlayhead'],
+				},
+				{
+					id: 'currentCuePlaybackSpeed',
+					type: 'simple',
+					name: 'Cue Playback Speed',
+					presets: [
+						'currentCuePlaybackSpeedStatus',
+						'currentCuePlaybackRotary',
+						'currentCuePlaybackMinusFive',
+						'currentCuePlaybackPlusFive',
+					],
+				},
+				{
+					id: 'currentCueVolume',
+					type: 'simple',
+					name: 'Cue Audio / Volume',
+					presets: [
+						'toggleAudio',
+						'audioOn',
+						'audioOff',
+						'currentCueVolumeRotary',
+						'currentCueVolumeMinusOne',
+						'currentCueVolumePlusOne',
+					],
+				},
+			],
+		},
+		{
+			id: 'playlistStatus',
+			name: 'Playlist Status',
+			definitions: [
+				'currentCueStatus',
+				'previousCueStatus',
+				'nextCueStatus',
+				'playStauts',
+				'currentCueTRT',
+				'currentCueTimeRemaining',
+			],
+		},
+		{
+			id: 'outputs',
+			name: 'Outputs',
+			definitions: [
+				{
+					id: 'videoOutput',
+					type: 'simple',
+					name: 'Video Outputs',
+					presets: [
+						'videoOutputsActive',
+						'videoOutputsOn',
+						'videoOutputsOff',
+						'toggleFullscreen',
+						'fullscreenOn',
+						'fullscreenOff',
+					],
+				},
+				{
+					id: 'audioOutput',
+					type: 'simple',
+					name: 'Audio Outputs',
+					presets: ['audioOutputsActive', 'audioOutputsOn', 'audioOutputsOff'],
+				},
+			],
+		},
+		{
+			id: 'playCueById',
+			name: 'Play Cue by ID',
+			definitions: Object.keys(presets).filter((id) => id.startsWith('playCueID_')),
+		},
+	]
+
+	return { structure, presets }
 }

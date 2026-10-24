@@ -1,14 +1,16 @@
-import { InstanceBase, Regex, InstanceStatus, runEntrypoint } from '@companion-module/base'
+import { InstanceBase, Regex, InstanceStatus } from '@companion-module/base'
 import { getActions } from './actions.js'
 import { getPresets } from './presets.js'
-import { getVariables } from './variables.js'
+import { getVariables, getCueVariableValues } from './variables.js'
 import { getFeedbacks } from './feedbacks.js'
 import UpgradeScripts from './upgrades.js'
 
 import OSC from 'osc'
 import { Bonjour } from '@julusian/bonjour-service'
 
-class MittiInstance extends InstanceBase {
+export { UpgradeScripts }
+
+export default class MittiInstance extends InstanceBase {
 	constructor(internal) {
 		super(internal)
 	}
@@ -59,7 +61,7 @@ class MittiInstance extends InstanceBase {
 				id: 'hostFiller',
 				width: 10,
 				label: '',
-				isVisible: (options) => !!options['bonjourHost'],
+				isVisibleExpression: '!!$(options:bonjourHost)',
 				value: '',
 			},
 			{
@@ -70,7 +72,7 @@ class MittiInstance extends InstanceBase {
 				default: '127.0.0.1',
 				width: 10,
 				regex: Regex.IP,
-				isVisible: (options) => !options['bonjourHost'],
+				isVisibleExpression: '!$(options:bonjourHost)',
 			},
 			{
 				type: 'textinput',
@@ -78,7 +80,7 @@ class MittiInstance extends InstanceBase {
 				label: 'Feedback Port',
 				width: 4,
 				tooltip: 'The port designated for Feedback in the OSC/UDP Controls tab in Mitti',
-				default: 51001,
+				default: '51001',
 				regex: Regex.PORT,
 			},
 			{
@@ -122,6 +124,7 @@ class MittiInstance extends InstanceBase {
 	initVariables() {
 		const variables = getVariables.bind(this)()
 		this.setVariableDefinitions(variables)
+		this.setVariableValues(getCueVariableValues.bind(this)())
 	}
 
 	initFeedbacks() {
@@ -130,8 +133,8 @@ class MittiInstance extends InstanceBase {
 	}
 
 	initPresets() {
-		const presets = getPresets.bind(this)()
-		this.setPresetDefinitions(presets)
+		const { structure, presets } = getPresets.bind(this)()
+		this.setPresetDefinitions(structure, presets)
 	}
 
 	initActions() {
@@ -158,10 +161,11 @@ class MittiInstance extends InstanceBase {
 
 	sendCommand(command, value, type) {
 		if (value || value === 0) {
+			type = type ?? 's'
 			this.oscSend(this.connection.ip, 51000, `/mitti/${command}`, [
 				{
-					type: type ?? 's',
-					value: value,
+					type: type,
+					value: type === 's' ? `${value}` : value,
 				},
 			])
 		} else {
@@ -169,10 +173,10 @@ class MittiInstance extends InstanceBase {
 		}
 	}
 
-	async conformCueID(context, cueID) {
-		let cue = await context.parseVariablesInString(cueID)
+	conformCueID(cueID) {
+		let cue = `${cueID ?? ''}`.trim()
 
-		if (!cue?.match(/^(current|selected|previous|next|all)$/)) {
+		if (!cue.match(/^(current|selected|previous|next|all)$/)) {
 			cue = cue.toUpperCase().slice(0, 6)
 		}
 		return cue
@@ -420,7 +424,7 @@ class MittiInstance extends InstanceBase {
 							cueTimeLeft_s: cueTimeLeftSS,
 						})
 						this.states.timeRemaining =
-							parseInt(cueTimeLeftHH) * 120 + parseInt(cueTimeLeftMM) * 60 + parseInt(cueTimeLeftSS)
+							parseInt(cueTimeLeftHH) * 3600 + parseInt(cueTimeLeftMM) * 60 + parseInt(cueTimeLeftSS)
 						this.checkFeedbacks('timeRemaining')
 					}
 				}
@@ -434,7 +438,7 @@ class MittiInstance extends InstanceBase {
 						let cueTimeElapsedMM = cueTimeElapsedSplit?.groups?.mm
 						let cueTimeElapsedSS = cueTimeElapsedSplit?.groups?.ss
 						let cueTimeElapsedShort = `${
-							cueTimeElapsedHH == '00' ? '' : cueTimeElapsedMM + ':'
+							cueTimeElapsedHH == '00' ? '' : cueTimeElapsedHH + ':'
 						}${cueTimeElapsedMM}:${cueTimeElapsedSS}`
 						let cueTimeElapsedFull = `${cueTimeElapsedHH}:${cueTimeElapsedMM}:${cueTimeElapsedSS}`
 
@@ -468,11 +472,6 @@ class MittiInstance extends InstanceBase {
 						})
 					}
 				}
-				break
-			case 'currentCueVolume':
-				this.states.currentCueName = value
-				this.setVariableValues({ currentCueName: value != '-' ? value : 'None' })
-				this.checkFeedbacks('playingCueName', 'playingCueID', 'activeCueName')
 				break
 			case 'togglePlay':
 				this.states.playing = value === 0 ? 'Paused' : 'Playing'
@@ -596,4 +595,3 @@ class MittiInstance extends InstanceBase {
 		}
 	}
 }
-runEntrypoint(MittiInstance, UpgradeScripts)

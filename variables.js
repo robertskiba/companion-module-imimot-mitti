@@ -1,176 +1,43 @@
 export function getVariables() {
-	const variables = []
+	const variables = {}
 
 	//Standard Variables
-	variables.push({
-		name: 'Name of the playing cue',
-		variableId: 'currentCueName',
-	})
-
-	variables.push({
-		name: 'Cue ID of the playing cue',
-		variableId: 'currentCueID',
-	})
-
-	variables.push({
-		name: 'Previous cue in playlist',
-		variableId: 'previousCueName',
-	})
-
-	variables.push({
-		name: 'Next cue in playlist',
-		variableId: 'nextCueName',
-	})
-
-	variables.push({
-		name: 'Name of currently selected cue',
-		variableId: 'selectedCueName',
-	})
-
-	variables.push({
-		name: 'Cue ID of the currently selected cue',
-		variableId: 'selectedCueID',
-	})
-
-	variables.push({
-		name: 'Play/ Pause Status',
-		variableId: 'playStatus',
-	})
-
-	variables.push({
-		name: 'Time remaining for current cue, will shorten to -MM:SS if less than 1 hour',
-		variableId: 'cueTimeLeft',
-	})
-
-	variables.push({
-		name: 'Time remaining for current cue, will always show full -HH:MM:SS timecode',
-		variableId: 'cueTimeLeft_hhmmss',
-	})
-
-	variables.push({
-		name: 'Time remaining for current cue (hours)',
-		variableId: 'cueTimeLeft_h',
-	})
-
-	variables.push({
-		name: 'Time remaining for current cue (minutes)',
-		variableId: 'cueTimeLeft_m',
-	})
-
-	variables.push({
-		name: 'Time remaining for current cue (seconds)',
-		variableId: 'cueTimeLeft_s',
-	})
-
-	variables.push({
-		name: 'Time elapsed for current cue, will shorten to -MM:SS if less than 1 hour',
-		variableId: 'cueTimeElapsed',
-	})
-
-	variables.push({
-		name: 'Time elapsed for current cue, will always show full -HH:MM:SS timecode',
-		variableId: 'cueTimeElapsed_hhmmss',
-	})
-
-	variables.push({
-		name: 'Time elapsed for current cue (hours)',
-		variableId: 'cueTimeElapsed_h',
-	})
-
-	variables.push({
-		name: 'Time elapsed for current cue (minutes)',
-		variableId: 'cueTimeElapsed_m',
-	})
-
-	variables.push({
-		name: 'Time elapsed for current cue (seconds)',
-		variableId: 'cueTimeElapsed_s',
-	})
-
-	variables.push({
-		name: 'Total run time (TRT) for current cue, will shorten to MM:SS if less than 1 hour',
-		variableId: 'currentCueTRT',
-	})
-
-	variables.push({
+	variables.currentCueName = { name: 'Name of the playing cue' }
+	variables.currentCueID = { name: 'Cue ID of the playing cue' }
+	variables.previousCueName = { name: 'Previous cue in playlist' }
+	variables.nextCueName = { name: 'Next cue in playlist' }
+	variables.selectedCueName = { name: 'Name of currently selected cue' }
+	variables.selectedCueID = { name: 'Cue ID of the currently selected cue' }
+	variables.playStatus = { name: 'Play/ Pause Status' }
+	variables.cueTimeLeft = { name: 'Time remaining for current cue, will shorten to -MM:SS if less than 1 hour' }
+	variables.cueTimeLeft_hhmmss = { name: 'Time remaining for current cue, will always show full -HH:MM:SS timecode' }
+	variables.cueTimeLeft_h = { name: 'Time remaining for current cue (hours)' }
+	variables.cueTimeLeft_m = { name: 'Time remaining for current cue (minutes)' }
+	variables.cueTimeLeft_s = { name: 'Time remaining for current cue (seconds)' }
+	variables.cueTimeElapsed = { name: 'Time elapsed for current cue, will shorten to -MM:SS if less than 1 hour' }
+	variables.cueTimeElapsed_hhmmss = { name: 'Time elapsed for current cue, will always show full -HH:MM:SS timecode' }
+	variables.cueTimeElapsed_h = { name: 'Time elapsed for current cue (hours)' }
+	variables.cueTimeElapsed_m = { name: 'Time elapsed for current cue (minutes)' }
+	variables.cueTimeElapsed_s = { name: 'Time elapsed for current cue (seconds)' }
+	variables.currentCueTRT = { name: 'Total run time (TRT) for current cue, will shorten to MM:SS if less than 1 hour' }
+	variables.currentCueTRT_hhmmss = {
 		name: 'Total run time (TRT) for current cue, will always show full HH:MM:SS timecode',
-		variableId: 'currentCueTRT_hhmmss',
-	})
-
-	variables.push({
-		name: 'Total run time (TRT) for current cue (hours)',
-		variableId: 'currentCueTRT_h',
-	})
-
-	variables.push({
-		name: 'Total run time (TRT) for current cue (minutes)',
-		variableId: 'currentCueTRT_m',
-	})
-
-	variables.push({
-		name: 'Total run time (TRT) for current cue (seconds)',
-		variableId: 'currentCueTRT_s',
-	})
-
-	variables.push({
-		name: 'Audio mute status for current cue',
-		variableId: 'currentCueAudio',
-	})
-
-	variables.push({
-		name: 'Audio volume for current cue in dB',
-		variableId: 'currentCueVolume',
-	})
-
-	variables.push({
-		name: 'Pause At Beginning status for current cue',
-		variableId: 'currentCuePauseAtBeginning',
-	})
-
-	variables.push({
-		name: 'Pause At End status for current cue',
-		variableId: 'currentCuePauseAtEnd',
-	})
-
-	variables.push({
-		name: 'Fade In status for current cue',
-		variableId: 'currentCueFadeIn',
-	})
-
-	variables.push({
-		name: 'Fade Out status for current cue',
-		variableId: 'currentCueFadeOut',
-	})
-
-	variables.push({
-		name: 'Loop status for current cue',
-		variableId: 'currentCueLoop',
-	})
-
-	variables.push({
-		name: 'Transition status for current cue',
-		variableId: 'currentCueTransition',
-	})
-
-	variables.push({
-		name: 'Goto status for current cue',
-		variableId: 'currentCueGoto',
-	})
-
-	variables.push({
-		name: 'Current playback speed for current cue',
-		variableId: 'currentCuePlaybackSpeed',
-	})
-
-	variables.push({
-		name: 'Current status of video outputs',
-		variableId: 'video_outputs',
-	})
-
-	variables.push({
-		name: 'Current status of audio outputs',
-		variableId: 'audio_outputs',
-	})
+	}
+	variables.currentCueTRT_h = { name: 'Total run time (TRT) for current cue (hours)' }
+	variables.currentCueTRT_m = { name: 'Total run time (TRT) for current cue (minutes)' }
+	variables.currentCueTRT_s = { name: 'Total run time (TRT) for current cue (seconds)' }
+	variables.currentCueAudio = { name: 'Audio mute status for current cue' }
+	variables.currentCueVolume = { name: 'Audio volume for current cue in dB' }
+	variables.currentCuePauseAtBeginning = { name: 'Pause At Beginning status for current cue' }
+	variables.currentCuePauseAtEnd = { name: 'Pause At End status for current cue' }
+	variables.currentCueFadeIn = { name: 'Fade In status for current cue' }
+	variables.currentCueFadeOut = { name: 'Fade Out status for current cue' }
+	variables.currentCueLoop = { name: 'Loop status for current cue' }
+	variables.currentCueTransition = { name: 'Transition status for current cue' }
+	variables.currentCueGoto = { name: 'Goto status for current cue' }
+	variables.currentCuePlaybackSpeed = { name: 'Current playback speed for current cue' }
+	variables.video_outputs = { name: 'Current status of video outputs' }
+	variables.audio_outputs = { name: 'Current status of audio outputs' }
 
 	//Cue Variables
 	for (let cueID in this.cues) {
@@ -178,13 +45,22 @@ export function getVariables() {
 			continue
 		}
 
-		let cue = this.cues[cueID]
-		variables.push({
-			name: `Cue ${cueID} - Name`,
-			variableId: `cue_${cueID}_cueName`,
-		})
-		this.setVariableValues({ [`cue_${cueID}_cueName`]: cue?.cueName })
+		variables[`cue_${cueID}_cueName`] = { name: `Cue ${cueID} - Name` }
 	}
 
 	return variables
+}
+
+export function getCueVariableValues() {
+	const values = {}
+
+	for (let cueID in this.cues) {
+		if (cueID === 'current' || cueID === 'previous' || cueID === 'next' || cueID === '0') {
+			continue
+		}
+
+		values[`cue_${cueID}_cueName`] = this.cues[cueID]?.cueName
+	}
+
+	return values
 }
